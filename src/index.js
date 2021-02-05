@@ -1,21 +1,14 @@
-
 module.exports = function towelSort (matrix) {
-  if (matrix == undefined || matrix.length == 0) return [];
+  if (!matrix || matrix.length === 0) {
+    return [];
+  }
 
-  if (matrix.length == 1) return matrix;
+  if (matrix.length === 1) {
+    return matrix;
+  }
 
-  let reverse = false;
-  let result = [];
-
-  matrix.forEach(row => {
-    if (!reverse) {
-      row.forEach( e => result.push(e) );
-      reverse = true;
-    } else {
-      row.reverse().forEach( e => result.push(e) );
-      reverse = false;
-    }
-  });
-  
-  return result;
+  return matrix.reduce((result, row, rowIndex) => [
+    ...result,
+    ...rowIndex % 2 === 0 ? row : row.reverse()
+  ]);
 }
